@@ -1,0 +1,22 @@
+/**
+ * InvestScape Economic Engine (E29-E45)
+ *
+ * This is the public API for all economic data engines.
+ * Engines provide regional macro context, city analysis, neighborhood demographics,
+ * comparable sales, rental data, and predictive models.
+ *
+ * Built on: Statistics Canada, Federal Reserve FRED, CMHC, CREA, Zillow, Google Places
+ */
+
+// Re-export types
+export * from './types';
+
+// Export engines (as we build them)
+// export { regionalMacroContext } from './E29-regional-macro-context';
+// export { cityMarketAnalysis } from './E30-city-market-analysis';
+// ... E31-E45 will be exported here as built
+
+// Re-export utilities
+export { isValidRegionId, validateRegionId, validateDateOrUseToday } from './utils/validators';
+export { formatPercentage, formatCurrency, formatNumber, formatDate } from './utils/formatters';
+export { REGIONS, REGION_NAMES, CONFIDENCE_LEVELS, DATA_FRESHNESS_TTL } from './utils/constants';

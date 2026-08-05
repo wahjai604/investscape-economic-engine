@@ -1,0 +1,37 @@
+{
+  "name": "@investscape/economic-engine",
+  "version": "0.1.0",
+  "description": "Economic data engines (E29-E45) for InvestScape. Provides regional macro context, city market analysis, neighborhood demographics, comps, and predictive models.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "tsc --noEmit",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "real-estate",
+    "investment",
+    "economic-analysis",
+    "market-data",
+    "demographics"
+  ],
+  "author": "Eric (InvestScape)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@investscape/calc-engine": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
