@@ -18,7 +18,10 @@ export { neighborhoodDemographics } from './E31-neighborhood-demographics';
 export { comparableSalesAnalysis } from './E32-comparable-sales-analysis';
 export { rentalCompEngine } from './E33-rental-comp-engine';
 export { schoolRatingEngine } from './E34-school-rating-engine';
-// ... E35-E45 will be exported here as built
+export { walkabilityTransitScorer } from './E35-walkability-transit-scorer';
+export { crimeSafetyEngine } from './E36-crime-safety-engine';
+export { marketVelocityAnalyzer } from './E37-market-velocity-analyzer';
+// ... E38-E45 will be exported here as built
 
 // Re-export utilities
 export { isValidRegionId, validateRegionId, validateDateOrUseToday } from './utils/validators';
