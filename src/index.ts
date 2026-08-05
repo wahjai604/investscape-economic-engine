@@ -15,7 +15,10 @@ export * from './types';
 export { regionalMacroContext } from './E29-regional-macro-context';
 export { cityMarketAnalysis } from './E30-city-market-analysis';
 export { neighborhoodDemographics } from './E31-neighborhood-demographics';
-// ... E32-E45 will be exported here as built
+export { comparableSalesAnalysis } from './E32-comparable-sales-analysis';
+export { rentalCompEngine } from './E33-rental-comp-engine';
+export { schoolRatingEngine } from './E34-school-rating-engine';
+// ... E35-E45 will be exported here as built
 
 // Re-export utilities
 export { isValidRegionId, validateRegionId, validateDateOrUseToday } from './utils/validators';
