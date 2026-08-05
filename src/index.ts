@@ -12,11 +12,11 @@
 export * from './types';
 
 // Export engines (as we build them)
-// export { regionalMacroContext } from './E29-regional-macro-context';
+export { regionalMacroContext } from './E29-regional-macro-context';
 // export { cityMarketAnalysis } from './E30-city-market-analysis';
 // ... E31-E45 will be exported here as built
 
 // Re-export utilities
 export { isValidRegionId, validateRegionId, validateDateOrUseToday } from './utils/validators';
 export { formatPercentage, formatCurrency, formatNumber, formatDate } from './utils/formatters';
-export { REGIONS, REGION_NAMES, CONFIDENCE_LEVELS, DATA_FRESHNESS_TTL } from './utils/constants';
+export { REGIONS, REGION_NAMES, REGION_DETAILS, CONFIDENCE_LEVELS, DATA_FRESHNESS_TTL, DATA_SOURCES, CANADIAN_REGIONS, US_REGIONS } from './utils/constants';

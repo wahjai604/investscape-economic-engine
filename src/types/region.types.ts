@@ -16,7 +16,7 @@ export interface RegionMetrics {
 
   // Real estate specific
   constructionStarts: number;        // Units/year
-  avgCapRate: number;                // %, e.g., 5.8
+  avgCapRate: number | null;         // %, e.g., 5.8 (null where no reliable data exists)
   avgAppreciation: number;           // Annual %, e.g., 3.5
 
   // Metadata
