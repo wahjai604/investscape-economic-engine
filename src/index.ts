@@ -13,7 +13,7 @@ export * from './types';
 
 // Export engines (as we build them)
 export { regionalMacroContext } from './E29-regional-macro-context';
-// export { cityMarketAnalysis } from './E30-city-market-analysis';
+export { cityMarketAnalysis } from './E30-city-market-analysis';
 // ... E31-E45 will be exported here as built
 
 // Re-export utilities

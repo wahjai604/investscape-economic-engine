@@ -15,11 +15,11 @@ export interface CityMetrics {
   medianHousePrice: number;          // CAD or USD (specified separately)
   medianRent: number;                // Monthly, specified unit type
 
-  // Cap rate distribution
+  // Cap rate distribution (null where no reliable data exists, e.g. sparse markets)
   capRateDistribution: {
-    p25: number;
-    p50: number;
-    p75: number;
+    p25: number | null;
+    p50: number | null;
+    p75: number | null;
   };
 
   // Trends
