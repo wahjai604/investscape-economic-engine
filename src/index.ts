@@ -14,7 +14,8 @@ export * from './types';
 // Export engines (as we build them)
 export { regionalMacroContext } from './E29-regional-macro-context';
 export { cityMarketAnalysis } from './E30-city-market-analysis';
-// ... E31-E45 will be exported here as built
+export { neighborhoodDemographics } from './E31-neighborhood-demographics';
+// ... E32-E45 will be exported here as built
 
 // Re-export utilities
 export { isValidRegionId, validateRegionId, validateDateOrUseToday } from './utils/validators';
