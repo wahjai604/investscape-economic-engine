@@ -1,4 +1,12 @@
 /**
+ * InvestScape™ Test Suite
+ * © 2026 Lighthouse Research Ltd. All rights reserved.
+ *
+ * Test methodology and validation data are proprietary.
+ * See LICENSE for usage restrictions.
+ */
+
+/**
  * E43 Test Suite: Portfolio Geographic Diversification Engine
  *
  * Like E42, this engine computes scores directly from formulas, so every

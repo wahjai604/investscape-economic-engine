@@ -20,7 +20,8 @@
     "demographics"
   ],
   "author": "Eric (InvestScape)",
-  "license": "MIT",
+  "license": "PROPRIETARY",
+  "licenseText": "© 2026 Lighthouse Research Ltd. Proprietary software. See LICENSE file.",
   "devDependencies": {
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",

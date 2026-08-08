@@ -1,4 +1,12 @@
 /**
+ * InvestScape™ Test Suite
+ * © 2026 Lighthouse Research Ltd. All rights reserved.
+ *
+ * Test methodology and validation data are proprietary.
+ * See LICENSE for usage restrictions.
+ */
+
+/**
  * E44 Test Suite: Currency Risk Exposure Engine
  *
  * Like E42/E43, this engine computes scores directly from formulas. Every

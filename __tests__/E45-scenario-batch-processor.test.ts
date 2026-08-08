@@ -1,4 +1,12 @@
 /**
+ * InvestScape™ Test Suite
+ * © 2026 Lighthouse Research Ltd. All rights reserved.
+ *
+ * Test methodology and validation data are proprietary.
+ * See LICENSE for usage restrictions.
+ */
+
+/**
  * E45 Test Suite: Scenario Batch Processor Engine (Capstone)
  *
  * IMPORTANT CONTEXT: the spec for this engine assumes a pre-existing "E1-E28"
