@@ -1,6 +1,6 @@
 # LICENSE
 
-**InvestScape™ Calculation Engine Library**  
+**InvestScape™ Economic Engine Library**
 © 2026 Lighthouse Research Ltd. All rights reserved.
 
 ---
@@ -9,11 +9,11 @@
 
 **IMPORTANT: READ CAREFULLY BEFORE USE**
 
-This software ("InvestScape™") is proprietary and confidential property of Lighthouse Research Ltd. ("Licensor"). 
+This software ("InvestScape™") is proprietary and confidential property of Lighthouse Research Ltd. ("Licensor").
 
 ### 1. Definitions
 
-- **"Software"** means the InvestScape™ Calculation Engine Library, including all source code, documentation, test suites, and compiled distributions.
+- **"Software"** means the InvestScape™ Economic Engine Library, including all source code, documentation, test suites, and compiled distributions.
 - **"Intellectual Property"** means all patents, copyrights, trade secrets, trademarks (including InvestScape™), and other intellectual property rights embodied in the Software.
 - **"Commercial Use"** means any use of the Software in a product, service, or application that generates revenue, directly or indirectly, or that is used by any person or entity other than the original licensee.
 - **"Personal Use"** means use of the Software for individual, non-commercial, educational, or internal business analysis only.
@@ -149,7 +149,7 @@ This License shall be governed by and construed in accordance with the laws of B
 
 If you believe your use case qualifies for Commercial Use, contact:
 
-**Email:** wahjai604@gmail.com  
+**Email:** wahjai604@gmail.com
 **Subject:** [COMMERCIAL LICENSE INQUIRY] — [Your Company Name]
 
 **Include in your inquiry:**
@@ -169,6 +169,6 @@ Licensor will review each inquiry individually and respond with either:
 
 ---
 
-© 2026 Lighthouse Research Ltd. All rights reserved.  
-InvestScape™ is a trademark of Lighthouse Research Ltd.  
-Last updated: August 8, 2026
+© 2026 Lighthouse Research Ltd. All rights reserved.
+InvestScape™ is a trademark of Lighthouse Research Ltd.
+Last updated: August 9, 2026

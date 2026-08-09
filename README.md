@@ -1,137 +1,81 @@
-# @investscape/economic-engine
+# InvestScape Economic Engine
 
-## 🔒 Licensing & Intellectual Property
+**Repository:** https://github.com/wahjai604/investscape-economic-engine
+**License:** Proprietary (Closed-Source) — see [LICENSE](LICENSE)
+**Copyright:** © 2026 Lighthouse Research Ltd.
 
-**InvestScape™ Calculation & Economic Engines (E1–E45)** is proprietary software © 2026 Lighthouse Research Ltd.  
-**InvestScape™** is a registered trademark of Lighthouse Research Ltd.
+## Purpose
 
-### License Summary
+Economic and market-data engines for InvestScape: regional macro context, city-level market analysis, neighborhood demographics, comparable sales, rental comps, and forward-looking market/scenario models.
 
-| Use Case | Status | License | Fee |
-|----------|--------|---------|-----|
-| **Personal real estate analysis** | ✅ Allowed | Proprietary License | None |
-| **Educational/learning** | ✅ Allowed | Proprietary License | None |
-| **Internal business analysis** | ✅ Allowed | Proprietary License | None |
-| **Commercial product embedding** | ❌ Prohibited | Requires Commercial License | Case-by-case negotiation |
-| **SaaS/service offering** | ❌ Prohibited | Requires Commercial License | Case-by-case negotiation |
-| **Redistribution/resale** | ❌ Prohibited | Not permitted | N/A |
+## Scope
 
-**For full license terms, see `LICENSE` and `CONTRIBUTING.md`.**
+17 engines, **E29–E45**:
 
-### Commercial Licensing
+| Engine | Description |
+|---|---|
+| E29 | Regional macro context |
+| E30 | City-level market analysis |
+| E31 | Neighborhood demographics |
+| E32 | Comparable sales analysis |
+| E33 | Rental comp engine |
+| E34 | School rating & education |
+| E35 | Walkability & transit scorer |
+| E36 | Crime & safety engine |
+| E37 | Market velocity analyzer |
+| E38 | Macro-to-micro sensitivity |
+| E39 | Mortgage rate forecast |
+| E40 | Appreciation probability |
+| E41 | Market cycle indicator |
+| E42 | Neighborhood investment score |
+| E43 | Portfolio geographic diversification |
+| E44 | Currency risk exposure |
+| E45 | Scenario batch processor |
 
-If your organization wishes to use InvestScape™ Calculation Engines in a commercial product or service:
+All 17 engines are implemented, exported from `src/index.ts`, and covered by tests. Note: E36 is implemented here but is **not currently exposed** through `investscape-api`'s HTTP endpoints, pending legal review at the API layer.
 
-1. **Contact:** wahjai604@gmail.com
-2. **Subject line:** `[COMMERCIAL LICENSE INQUIRY] — [Your Organization Name]`
-3. **Include:**
-   - Organization name and industry
-   - Intended commercial use
-   - Target customer base
-   - Estimated revenue/impact
-   - Timeline for implementation
+**Jurisdictions:** Canada (all provinces/territories, grouped into 5 regions) and US (all four Census regions). City-level data (E30) includes specific hardcoded cities across both countries — see `src/E30-city-market-analysis.ts` for the exact list.
 
-**Note:** Commercial licensing is evaluated **case-by-case.** No standard pricing. Substantial business justification required.
+This package depends on `@investscape/calc-engine`.
 
-### Trademark Use
+## Testing
 
-The name **InvestScape™** and associated trademark symbols (™, ®) are protected intellectual property. You may:
-- ✅ Refer to "InvestScape™" when describing the software in non-commercial contexts
-- ✅ Use the trademark when attributing calculation results (e.g., "Powered by InvestScape™")
+- **Test suites:** 17
+- **Test cases:** 318
+- **Passing:** 318/318 (100%)
+- **Coverage** (via `npm run test:coverage`): 89.92% statements, 76.91% branches, 97.17% functions, 95.54% lines. `jest.config.js` sets an 80% coverage threshold on all four metrics; **branch coverage (76.91%) currently fails that gate**, so `npm run test:coverage` exits non-zero even though all tests pass. Weakest spots: `src/utils/formatters.ts` (0% covered) and lower branch coverage in E42–E45.
 
-You may NOT:
-- ❌ Use the InvestScape™ name or logo to suggest endorsement or partnership
-- ❌ Register similar domains or social media accounts using "InvestScape"
-- ❌ Use the trademark in a commercial product without permission
-
----
-
-Economic data engines (E29-E45) for InvestScape. Provides regional macro context, city market analysis, neighborhood demographics, comparable sales, rental data, and predictive models.
+```bash
+npm test
+```
 
 ## Installation
 
-```bash
-npm install @investscape/economic-engine
-```
-
-## Engines (E29-E45)
-
-### Build Status
-- [ ] E29: Regional Macro Context
-- [ ] E30: City-Level Market Analysis
-- [ ] E31: Neighborhood Demographics
-- [ ] E32: Comparable Sales Analysis
-- [ ] E33: Rental Comp Engine
-- [ ] E34: School Rating & Education
-- [ ] E35: Walkability & Transit Scorer
-- [ ] E36: Crime & Safety (TBD — pending legal review)
-- [ ] E37: Market Velocity Analyzer
-- [ ] E38: Macro-to-Micro Sensitivity
-- [ ] E39: Mortgage Rate Forecast
-- [ ] E40: Appreciation Probability
-- [ ] E41: Market Cycle Indicator
-- [ ] E42: Neighborhood Investment Score
-- [ ] E43: Portfolio Geographic Diversification
-- [ ] E44: Currency Risk Exposure
-- [ ] E45: Scenario Batch Processor
-
-## Usage
-
-```typescript
-import { regionalMacroContext } from '@investscape/economic-engine';
-
-const metrics = regionalMacroContext({
-  regionId: 'western-canada',
-  regionName: 'Western Canada',
-});
-
-console.log(metrics.gdpGrowth, metrics.avgCapRate);
-```
-
-## Data Sources
-
-- **Statistics Canada**: GDP, inflation, employment, construction starts, demographics
-- **Federal Reserve FRED**: US economic indicators
-- **Bank of Canada**: Mortgage rates
-- **CMHC**: Housing data, rental market
-- **CREA**: Canadian real estate market data
-- **Zillow API**: US home values, rental estimates
-- **Google Places API**: Schools, amenities, walkability
-- **Walk Score**: Pedestrian/transit/bike scores
-
-## Development
+For authorized users only. Usage requires a valid InvestScape tier (S1–S3).
 
 ```bash
-# Install dependencies
 npm install
-
-# Run tests
 npm test
-
-# Watch mode
-npm run test:watch
-
-# Build
-npm run build
-
-# Coverage
-npm run test:coverage
 ```
 
 ## Architecture
 
 This package is part of the InvestScape ecosystem:
 
-- **investscape-calc-engine**: Financial calculation engines (E1-E28)
-- **investscape-economic-engine**: Economic data engines (E29-E45) ← YOU ARE HERE
-- **investscape-api**: Gateway layer that orchestrates both
+- **investscape-calc-engine** — financial calculation engines, E1–E27
+- **investscape-economic-engine** — economic data engines, E29–E45 (this repo)
+- **investscape-api** — HTTP wrapper layer that orchestrates both
 
-## Status
+## Documentation
 
-- ✅ Phase: Bootstrap complete
-- 🔄 Phase: E29-E45 build sequence (Week 3-8)
-- 🚀 Phase: API integration (Week 9+)
+Reference documentation: https://github.com/wahjai604/investscape-docs
 
-## License
+## License & Disclaimer
 
-MIT
+This software is closed-source proprietary code. Authorized users only.
+
+For legal disclaimers, see [DISCLAIMER.md](DISCLAIMER.md).
+
+---
+
+© 2026 Lighthouse Research Ltd. All rights reserved.
