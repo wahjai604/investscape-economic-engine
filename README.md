@@ -62,7 +62,7 @@ npm test
 
 This package is part of the InvestScape ecosystem:
 
-- **investscape-calc-engine** — financial calculation engines, E1–E27
+- **investscape-calc-engine** — financial calculation engines, E1–E28
 - **investscape-economic-engine** — economic data engines, E29–E45 (this repo)
 - **investscape-api** — HTTP wrapper layer that orchestrates both
 
