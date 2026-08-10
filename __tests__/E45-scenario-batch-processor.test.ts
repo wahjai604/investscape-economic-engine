@@ -348,6 +348,78 @@ describe('E45: Scenario Batch Processor Engine', () => {
     });
   });
 
+  describe('IRR bisection edge cases', () => {
+
+    it('should widen the search bracket and fall back to a 0 IRR when cash flows never cross zero', () => {
+      // A tiny down payment, a maxed-out interest rate, full vacancy, and the
+      // worst allowed appreciation clamp combine to make every cash flow in
+      // the series negative (operating loss every year, and the exit proceeds
+      // still underwater after payoff + selling costs). NPV is then negative
+      // at every discount rate, so the bisection's initial bracket never
+      // brackets a root: it repeatedly doubles the upper bound (the
+      // "widen search" loop) before giving up and reporting a 0 IRR rather
+      // than a nonsensical or NaN value.
+      const distress: MarketScenario = {
+        scenarioName: 'Deep Distress',
+        scenarioId: 'distress',
+        variables: [{ name: 'appreciationDelta', value: -22.5, unit: 'percent' }],
+        probability: null,
+        description: null,
+      };
+
+      const result = scenarioBatchProcessor({
+        properties: [
+          baseProperty({
+            propertyId: 'prop-1',
+            downPaymentPercent: 5,
+            interestRate: 25,
+            monthlyRentalIncome: 100,
+            vacancyRate: 100,
+            holdingPeriodYears: 1,
+          }),
+        ],
+        scenarios: [distress],
+        portfolioBaseCurrency: 'CAD',
+        fxRate: 1.25,
+        timeHorizonOverride: null,
+      });
+
+      expect(result.scenarios[0].properties[0].appreciationRate).toBe(-20);
+      expect(result.scenarios[0].properties[0].irr).toBe(0);
+    });
+
+    it('should fall back to the midpoint estimate when a huge-magnitude cash flow series never converges within tolerance', () => {
+      // Scaling every dollar figure up ~1,000,000x keeps the same cash flow
+      // shape (and therefore the same true IRR) as the base-case fixture, but
+      // at that magnitude the absolute NPV never drops below the bisection's
+      // 1e-6 convergence tolerance before floating-point precision exhausts
+      // the search interval — exercising the "exhausted all 200 iterations"
+      // fallback return instead of the early-exit convergence check.
+      const result = scenarioBatchProcessor({
+        properties: [
+          baseProperty({
+            propertyId: 'prop-1',
+            purchasePrice: 500_000_000_000,
+            annualPropertyTaxes: 5_000_000_000,
+            monthlyRentalIncome: 2_500_000_000,
+            monthlyUtilities: 100_000_000,
+            monthlyMaintenance: 200_000_000,
+            monthlyPropertyManagement: 250_000_000,
+            monthlyInsurance: 100_000_000,
+          }),
+        ],
+        scenarios: [baseScenario],
+        portfolioBaseCurrency: 'CAD',
+        fxRate: 1.25,
+        timeHorizonOverride: null,
+      });
+
+      // Same cash flow shape as the base case fixture, just scaled up — the
+      // resulting IRR should still land in the same neighborhood.
+      expect(result.scenarios[0].properties[0].irr).toBeCloseTo(4.8014, 1);
+    });
+  });
+
   describe('Data Validation & Metadata', () => {
 
     it('should report the disclaimer and tier on every response', () => {

@@ -338,4 +338,57 @@ describe('E42: Neighborhood Investment Score Engine', () => {
       expect(Object.keys(result.factors)).toHaveLength(7);
     });
   });
+
+  describe('Factor: Rental Yield fallback — middle and low rent-per-sqft tiers', () => {
+
+    it('should apply the middle tier (1.5 <= rentPerSqft < 2.0)', () => {
+      const result = neighborhoodInvestmentScore({ ...ALL_NULL_INPUT, rentPerSqft: 1.7 });
+      // base 50 (mid tier) + default vacancy 5% (<=5 -> +8) = 58.
+      expect(result.factors.rentalYield.score).toBe(58);
+    });
+
+    it('should apply the low tier (rentPerSqft < 1.5)', () => {
+      const result = neighborhoodInvestmentScore({ ...ALL_NULL_INPUT, rentPerSqft: 1.0 });
+      // base 30 (low tier) + default vacancy 5% (<=5 -> +8) = 38.
+      expect(result.factors.rentalYield.score).toBe(38);
+    });
+  });
+
+  describe('Factor: Demographics — populationDensity tiers', () => {
+
+    it('should apply the mid-density bonus (500 <= density < 1000)', () => {
+      const result = neighborhoodInvestmentScore({ ...ALL_NULL_INPUT, populationDensity: 700 });
+      expect(result.factors.demographics.score).toBe(73);
+    });
+
+    it('should apply no density bonus below 500', () => {
+      const result = neighborhoodInvestmentScore({ ...ALL_NULL_INPUT, populationDensity: 200 });
+      expect(result.factors.demographics.score).toBe(65);
+    });
+  });
+
+  describe('Factor: Liveability — school rating tiers', () => {
+
+    it('should apply the mid-tier school rating bonus (6.5 <= rating < 7.5)', () => {
+      const result = neighborhoodInvestmentScore({
+        ...ALL_NULL_INPUT,
+        walkScore: 72,
+        transitScore: 65,
+        bikeScore: 58,
+        averageSchoolRating: 7.0,
+      });
+      expect(result.factors.liveability.score).toBe(65);
+    });
+
+    it('should apply the low school rating penalty (rating < 6.5)', () => {
+      const result = neighborhoodInvestmentScore({
+        ...ALL_NULL_INPUT,
+        walkScore: 72,
+        transitScore: 65,
+        bikeScore: 58,
+        averageSchoolRating: 5.0,
+      });
+      expect(result.factors.liveability.score).toBe(55);
+    });
+  });
 });

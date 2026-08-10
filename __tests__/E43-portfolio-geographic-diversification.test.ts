@@ -441,4 +441,87 @@ describe('E43: Portfolio Geographic Diversification Engine', () => {
       expect(Object.keys(result.factors)).toHaveLength(6);
     });
   });
+
+  describe('Factor: Asset Value Balance — Gini adjustment tiers', () => {
+
+    it('should apply no Gini adjustment for moderate inequality (0.5 <= gini < 0.7)', () => {
+      const result = portfolioGeographicDiversification({
+        properties: [
+          makeProperty({ propertyId: 'p1', currentMarketValue: 50000 }),
+          makeProperty({ propertyId: 'p2', currentMarketValue: 50000 }),
+          makeProperty({ propertyId: 'p3', currentMarketValue: 50000 }),
+          makeProperty({ propertyId: 'p4', currentMarketValue: 50000 }),
+          makeProperty({ propertyId: 'p5', currentMarketValue: 800000 }),
+        ],
+        ...BASE_INPUT,
+      });
+      // largest = 800k/1M = 80% -> base 10; gini ~0.6 (in [0.5, 0.7)) -> +0.
+      expect(result.factors.assetValueBalance.score).toBe(10);
+    });
+
+    it('should apply the severe-inequality Gini penalty (gini >= 0.7)', () => {
+      const result = portfolioGeographicDiversification({
+        properties: [
+          makeProperty({ propertyId: 'p1', currentMarketValue: 10000 }),
+          makeProperty({ propertyId: 'p2', currentMarketValue: 10000 }),
+          makeProperty({ propertyId: 'p3', currentMarketValue: 10000 }),
+          makeProperty({ propertyId: 'p4', currentMarketValue: 10000 }),
+          makeProperty({ propertyId: 'p5', currentMarketValue: 960000 }),
+        ],
+        ...BASE_INPUT,
+      });
+      // largest = 96% -> base 10; gini ~0.76 (>= 0.7) -> -8.
+      expect(result.factors.assetValueBalance.score).toBe(2);
+    });
+  });
+
+  describe('Factor: Income Source Diversity — low income-producing fraction', () => {
+
+    it('should apply the penalty when fewer than half the properties produce income', () => {
+      const result = portfolioGeographicDiversification({
+        properties: [
+          makeProperty({ propertyId: 'p1', annualGrossIncome: 40000 }),
+          makeProperty({ propertyId: 'p2', annualGrossIncome: 10000 }),
+          makeProperty({ propertyId: 'p3', annualGrossIncome: null }),
+          makeProperty({ propertyId: 'p4', annualGrossIncome: null }),
+          makeProperty({ propertyId: 'p5', annualGrossIncome: null }),
+        ],
+        ...BASE_INPUT,
+      });
+      // largest = 40k/50k = 80% -> base 15; null income present -> -10;
+      // 2/5 = 40% producing (< 50%) -> -5. clamp(0) = 1.
+      expect(result.factors.incomeSourceDiversity.score).toBe(1);
+    });
+  });
+
+  describe('Factor: Cross-Border Risk Balance — skew tiers', () => {
+
+    it('should score 55 for a skew of exactly 50 points', () => {
+      const result = portfolioGeographicDiversification({
+        properties: [
+          makeProperty({ propertyId: 'p1', currentMarketValue: 750000, currency: 'CAD', country: 'CA' }),
+          makeProperty({ propertyId: 'p2', currentMarketValue: 250000, currency: 'USD', country: 'US' }),
+        ],
+        portfolioBaseCurrency: 'CAD',
+        fxRate: 1,
+      });
+      expect(result.concentrationRisks.cadPercent).toBe(75);
+      expect(result.concentrationRisks.usdPercent).toBe(25);
+      expect(result.factors.crossBorderRiskBalance.score).toBe(55);
+    });
+
+    it('should score 25 for a skew greater than 50 points', () => {
+      const result = portfolioGeographicDiversification({
+        properties: [
+          makeProperty({ propertyId: 'p1', currentMarketValue: 900000, currency: 'CAD', country: 'CA' }),
+          makeProperty({ propertyId: 'p2', currentMarketValue: 100000, currency: 'USD', country: 'US' }),
+        ],
+        portfolioBaseCurrency: 'CAD',
+        fxRate: 1,
+      });
+      expect(result.concentrationRisks.cadPercent).toBe(90);
+      expect(result.concentrationRisks.usdPercent).toBe(10);
+      expect(result.factors.crossBorderRiskBalance.score).toBe(25);
+    });
+  });
 });
