@@ -458,6 +458,15 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // Verified against Zillow Research's live public ZHVI/ZORI CSVs on 2026-09-06
+  // (files.zillowstatic.com/research/public_csvs/{zhvi,zori}/...), metro
+  // "Houston, TX", period 2026-07-31 vs 2025-07-31. medianHousePrice/medianRent/
+  // priceChange12m/rentChange12m below are real, live-sourced figures.
+  // population/capRateDistribution/daysOnMarket/absorptionRate are NOT yet
+  // sourced (Census ACS population pull needs a free API key registration —
+  // api.census.gov now gate-keeps even 1-row requests; cap rate/DOM/absorption
+  // have no free public feed identified yet) — still placeholders, hence
+  // confidence downgraded from 'high' to 'medium' rather than left mislabeled.
   'houston-tx': {
     cityId: 'houston-tx',
     cityName: 'Houston',
@@ -465,21 +474,22 @@ const MOCK_DATA: MockCityData = {
     regionId: US_REGIONS.SOUTH,
     asOfDate: new Date('2026-08-04'),
     population: 7066000,
-    medianHousePrice: 375000,
-    medianRent: 1550,
+    medianHousePrice: 307772,
+    medianRent: 1654,
     capRateDistribution: {
       p25: 6.2,
       p50: 6.9,
       p75: 7.7,
     },
-    priceChange12m: 4.8,
-    rentChange12m: 5.1,
+    priceChange12m: -2.0,
+    rentChange12m: -0.0,
     daysOnMarket: 20,
     absorptionRate: 2.3,
-    source: `${DATA_SOURCES.FRED}, Zillow`,
-    confidence: 'high',
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI (medianHousePrice/medianRent/priceChange12m/rentChange12m live-verified 2026-09-06; population/capRate/DOM/absorption still placeholder)`,
+    confidence: 'medium',
   },
 
+  // Same verification pass as houston-tx above, metro "Austin, TX".
   'austin-tx': {
     cityId: 'austin-tx',
     cityName: 'Austin',
@@ -487,19 +497,19 @@ const MOCK_DATA: MockCityData = {
     regionId: US_REGIONS.SOUTH,
     asOfDate: new Date('2026-08-04'),
     population: 2327000,
-    medianHousePrice: 625000,
-    medianRent: 1850,
+    medianHousePrice: 424339,
+    medianRent: 1647,
     capRateDistribution: {
       p25: 5.8,
       p50: 6.4,
       p75: 7.1,
     },
-    priceChange12m: 7.2,
-    rentChange12m: 7.5,
+    priceChange12m: -5.2,
+    rentChange12m: -0.9,
     daysOnMarket: 15,
     absorptionRate: 1.6,
-    source: `${DATA_SOURCES.FRED}, Zillow`,
-    confidence: 'high',
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI (medianHousePrice/medianRent/priceChange12m/rentChange12m live-verified 2026-09-06; population/capRate/DOM/absorption still placeholder)`,
+    confidence: 'medium',
   },
 
   'nashville-tn': {
@@ -613,6 +623,7 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // Same verification pass as houston-tx/austin-tx above, metro "Phoenix, AZ".
   'phoenix-az': {
     cityId: 'phoenix-az',
     cityName: 'Phoenix',
@@ -620,19 +631,19 @@ const MOCK_DATA: MockCityData = {
     regionId: US_REGIONS.WEST,
     asOfDate: new Date('2026-08-04'),
     population: 5028000,
-    medianHousePrice: 425000,
-    medianRent: 1550,
+    medianHousePrice: 445924,
+    medianRent: 1727,
     capRateDistribution: {
       p25: 6.1,
       p50: 6.8,
       p75: 7.5,
     },
-    priceChange12m: 5.8,
-    rentChange12m: 6.1,
+    priceChange12m: -1.5,
+    rentChange12m: 0.3,
     daysOnMarket: 17,
     absorptionRate: 1.9,
-    source: `${DATA_SOURCES.FRED}, Zillow`,
-    confidence: 'high',
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI (medianHousePrice/medianRent/priceChange12m/rentChange12m live-verified 2026-09-06; population/capRate/DOM/absorption still placeholder)`,
+    confidence: 'medium',
   },
 };
 

@@ -318,7 +318,7 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(result.medianHousePrice).toBeLessThan(415000); // Affordable
     });
 
-    it('should return Austin as fastest appreciating South city', () => {
+    it('should return Austin with real Zillow-verified price/rent decline (2026-09-06)', () => {
       const result = cityMarketAnalysis({
         cityId: 'austin-tx',
         cityName: 'Austin',
@@ -327,9 +327,12 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.priceChange12m).toBe(7.2); // Fastest in entire South region
-      expect(result.rentChange12m).toBe(7.5); // Fastest rent growth
-      expect(result.daysOnMarket).toBe(15); // Fastest moving market
+      // Live-verified against Zillow ZHVI/ZORI 2026-09-06 — Austin's post-2023
+      // price correction means it is NOT the fastest-appreciating South city
+      // anymore (previous mock data claimed +7.2%/+7.5%, which was fabricated).
+      expect(result.priceChange12m).toBe(-5.2);
+      expect(result.rentChange12m).toBe(-0.9);
+      expect(result.daysOnMarket).toBe(15); // Still placeholder, not yet live-sourced
     });
 
     it('should return Nashville as emerging growth market', () => {
@@ -411,9 +414,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.medianHousePrice).toBe(425000); // Affordable for West
-      expect(result.capRateDistribution.p50).toBe(6.8); // Better cap rates
-      expect(result.priceChange12m).toBe(5.8); // Strong growth
+      // Live-verified against Zillow ZHVI/ZORI 2026-09-06 (previous mock values
+      // of $425,000 / +5.8% were fabricated placeholders).
+      expect(result.medianHousePrice).toBe(445924);
+      expect(result.capRateDistribution.p50).toBe(6.8); // Better cap rates (still placeholder)
+      expect(result.priceChange12m).toBe(-1.5);
     });
   });
 
@@ -490,7 +495,7 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(vancouver.medianHousePrice).toBeGreaterThan(toronto.medianHousePrice);
     });
 
-    it('should show Austin as fastest appreciating US market', () => {
+    it('should show Chicago outpacing Austin on price growth (live Zillow data, 2026-09-06)', () => {
       const austin = cityMarketAnalysis({
         cityId: 'austin-tx',
         cityName: 'Austin',
@@ -507,7 +512,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(austin.priceChange12m).toBeGreaterThan(chicago.priceChange12m);
+      // Reversed from the original mock-data assertion: real Zillow ZHVI shows
+      // Austin in a post-2023 price correction (-5.2%), while Chicago's mock
+      // figure (+1.8%, still unverified) is positive — Austin is no longer
+      // "fastest appreciating" now that its number is real.
+      expect(chicago.priceChange12m).toBeGreaterThan(austin.priceChange12m);
     });
 
     it('should show South region cities with highest cap rates in US', () => {
