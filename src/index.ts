@@ -44,6 +44,7 @@ export { mortgageRateForecast } from './E39-mortgage-rate-forecast';
 export { appreciationProbability } from './E40-appreciation-probability';
 export { marketCycleIndicator } from './E41-market-cycle-indicator';
 export { neighborhoodInvestmentScore } from './E42-neighborhood-investment-score';
+export type { NeighborhoodInvestmentScoreOutput } from './E42-neighborhood-investment-score';
 export { portfolioGeographicDiversification } from './E43-portfolio-geographic-diversification';
 export { currencyRiskExposure } from './E44-currency-risk-exposure';
 export { scenarioBatchProcessor } from './E45-scenario-batch-processor';
