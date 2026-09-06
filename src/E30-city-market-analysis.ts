@@ -460,20 +460,21 @@ const MOCK_DATA: MockCityData = {
 
   // Verified against Zillow Research's live public ZHVI/ZORI CSVs on 2026-09-06
   // (files.zillowstatic.com/research/public_csvs/{zhvi,zori}/...), metro
-  // "Houston, TX", period 2026-07-31 vs 2025-07-31. medianHousePrice/medianRent/
-  // priceChange12m/rentChange12m below are real, live-sourced figures.
-  // population/capRateDistribution/daysOnMarket/absorptionRate are NOT yet
-  // sourced (Census ACS population pull needs a free API key registration —
-  // api.census.gov now gate-keeps even 1-row requests; cap rate/DOM/absorption
-  // have no free public feed identified yet) — still placeholders, hence
-  // confidence downgraded from 'high' to 'medium' rather than left mislabeled.
+  // "Houston, TX", period 2026-07-31 vs 2025-07-31. Population verified against
+  // Census ACS 1-year estimates (api.census.gov/data/2023/acs/acs1), metro
+  // "Houston-Pasadena-The Woodlands, TX Metro Area" (CBSA 26420), 2026-09-06.
+  // medianHousePrice/medianRent/priceChange12m/rentChange12m/population below
+  // are all real, live-sourced figures. capRateDistribution/daysOnMarket/
+  // absorptionRate have no free public feed identified yet — still
+  // placeholders, hence confidence stays 'medium' rather than 'high' until
+  // those are sourced too.
   'houston-tx': {
     cityId: 'houston-tx',
     cityName: 'Houston',
     province: 'Texas',
     regionId: US_REGIONS.SOUTH,
     asOfDate: new Date('2026-08-04'),
-    population: 7066000,
+    population: 7510252,
     medianHousePrice: 307772,
     medianRent: 1654,
     capRateDistribution: {
@@ -489,14 +490,15 @@ const MOCK_DATA: MockCityData = {
     confidence: 'medium',
   },
 
-  // Same verification pass as houston-tx above, metro "Austin, TX".
+  // Same verification pass as houston-tx above, metro "Austin, TX" /
+  // Census CBSA 12420 ("Austin-Round Rock-San Marcos, TX Metro Area").
   'austin-tx': {
     cityId: 'austin-tx',
     cityName: 'Austin',
     province: 'Texas',
     regionId: US_REGIONS.SOUTH,
     asOfDate: new Date('2026-08-04'),
-    population: 2327000,
+    population: 2473275,
     medianHousePrice: 424339,
     medianRent: 1647,
     capRateDistribution: {
@@ -623,14 +625,15 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
-  // Same verification pass as houston-tx/austin-tx above, metro "Phoenix, AZ".
+  // Same verification pass as houston-tx/austin-tx above, metro "Phoenix, AZ" /
+  // Census CBSA 38060 ("Phoenix-Mesa-Chandler, AZ Metro Area").
   'phoenix-az': {
     cityId: 'phoenix-az',
     cityName: 'Phoenix',
     province: 'Arizona',
     regionId: US_REGIONS.WEST,
     asOfDate: new Date('2026-08-04'),
-    population: 5028000,
+    population: 5070110,
     medianHousePrice: 445924,
     medianRent: 1727,
     capRateDistribution: {
