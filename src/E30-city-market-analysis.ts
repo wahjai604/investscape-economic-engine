@@ -490,6 +490,94 @@ const MOCK_DATA: MockCityData = {
     confidence: 'medium',
   },
 
+  // Verified against Zillow Research's live public ZHVI/ZORI CSVs on 2026-09-06,
+  // metro "Dallas, TX", period 2026-07-31 vs 2025-07-31. Population verified
+  // against Census ACS 1-year estimates (2023), metro "Dallas-Fort Worth-Arlington,
+  // TX Metro Area" (CBSA 19100). medianHousePrice/medianRent/priceChange12m/
+  // rentChange12m/population are real, live-sourced. capRateDistribution set to
+  // null (no reliable source found, per the type's own documented convention for
+  // sparse/unverified markets) rather than reusing an invented number.
+  // daysOnMarket/absorptionRate remain rough regional-consistent placeholders —
+  // no free feed identified yet — hence confidence stays 'medium'.
+  'dallas-tx': {
+    cityId: 'dallas-tx',
+    cityName: 'Dallas',
+    province: 'Texas',
+    regionId: US_REGIONS.SOUTH,
+    asOfDate: new Date('2026-08-04'),
+    population: 8100037,
+    medianHousePrice: 364793,
+    medianRent: 1667,
+    capRateDistribution: {
+      p25: null,
+      p50: null,
+      p75: null,
+    },
+    priceChange12m: -2.6,
+    rentChange12m: 0.1,
+    daysOnMarket: 19,
+    absorptionRate: 2.1,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    confidence: 'medium',
+  },
+
+  // Same verification pass as dallas-tx above, metro "San Antonio, TX" /
+  // Census CBSA 41700 ("San Antonio-New Braunfels, TX Metro Area").
+  'san-antonio-tx': {
+    cityId: 'san-antonio-tx',
+    cityName: 'San Antonio',
+    province: 'Texas',
+    regionId: US_REGIONS.SOUTH,
+    asOfDate: new Date('2026-08-04'),
+    population: 2703999,
+    medianHousePrice: 279434,
+    medianRent: 1425,
+    capRateDistribution: {
+      p25: null,
+      p50: null,
+      p75: null,
+    },
+    priceChange12m: -1.9,
+    rentChange12m: -1.8,
+    daysOnMarket: 21,
+    absorptionRate: 2.4,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    confidence: 'medium',
+  },
+
+  // Same verification pass as dallas-tx above, metro "Tucson, AZ" /
+  // Census CBSA 46060 ("Tucson, AZ Metro Area").
+  'tucson-az': {
+    cityId: 'tucson-az',
+    cityName: 'Tucson',
+    province: 'Arizona',
+    regionId: US_REGIONS.WEST,
+    asOfDate: new Date('2026-08-04'),
+    population: 1063162,
+    medianHousePrice: 340855,
+    medianRent: 1483,
+    capRateDistribution: {
+      p25: null,
+      p50: null,
+      p75: null,
+    },
+    priceChange12m: -2.0,
+    rentChange12m: 1.1,
+    daysOnMarket: 22,
+    absorptionRate: 2.5,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    confidence: 'medium',
+  },
+
+  // NOTE: Prescott Valley-Prescott, AZ (Census CBSA 39150, population
+  // 249,081 verified via ACS 2023 1-year estimates) is deliberately NOT
+  // added here. Zillow's metro-level ZHVI/ZORI files (895 US metros,
+  // checked 2026-09-06) do not cover this metro at all — it's too small
+  // for their metro-level research feed. Rather than invent a price/rent
+  // figure, this metro stays unbuilt until a real source is found. Do not
+  // add it with placeholder numbers — that's exactly the fabricated-data
+  // bug this file was fixed for earlier today.
+
   // Same verification pass as houston-tx above, metro "Austin, TX" /
   // Census CBSA 12420 ("Austin-Round Rock-San Marcos, TX Metro Area").
   'austin-tx': {
