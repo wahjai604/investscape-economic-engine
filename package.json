@@ -1,6 +1,6 @@
 {
   "name": "@investscape/economic-engine",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Economic data engines (E29-E45) for InvestScape. Provides regional macro context, city market analysis, neighborhood demographics, comps, and predictive models.",
   "main": "./dist/umd/investscape-economic-engine.umd.js",
   "module": "./dist/esm/index.js",

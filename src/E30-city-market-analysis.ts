@@ -485,7 +485,7 @@ const MOCK_DATA: MockCityData = {
     rentChange12m: -0.0,
     daysOnMarket: 20,
     absorptionRate: 2.3,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI (medianHousePrice/medianRent/priceChange12m/rentChange12m live-verified 2026-09-06; population/capRate/DOM/absorption still placeholder)`,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
     confidence: 'medium',
   },
 
@@ -508,7 +508,7 @@ const MOCK_DATA: MockCityData = {
     rentChange12m: -0.9,
     daysOnMarket: 15,
     absorptionRate: 1.6,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI (medianHousePrice/medianRent/priceChange12m/rentChange12m live-verified 2026-09-06; population/capRate/DOM/absorption still placeholder)`,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
     confidence: 'medium',
   },
 
@@ -642,7 +642,7 @@ const MOCK_DATA: MockCityData = {
     rentChange12m: 0.3,
     daysOnMarket: 17,
     absorptionRate: 1.9,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI (medianHousePrice/medianRent/priceChange12m/rentChange12m live-verified 2026-09-06; population/capRate/DOM/absorption still placeholder)`,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
     confidence: 'medium',
   },
 };
