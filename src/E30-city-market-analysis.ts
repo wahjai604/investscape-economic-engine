@@ -505,9 +505,11 @@ const MOCK_DATA: MockCityData = {
   // "Houston, TX metro area" (26420), month ending 2026-05-31, retrieved
   // 2026-09-09. See the MARKET VELOCITY SOURCING note above this block.
   //
-  // capRateDistribution is now the only unsourced field on this record and
-  // remains a placeholder — no free public per-metro cap rate feed exists.
-  // confidence stays 'medium' for that reason.
+  // capRateDistribution corrected 2026-09-09 from an invented placeholder
+  // (p50 6.9) to null, matching dallas-tx/san-antonio-tx/tucson-az's
+  // documented convention for unverified markets — cap rate is a confirmed
+  // dead end, no free public per-metro feed exists (CoStar/Reis/MSCI own
+  // this space). confidence stays 'medium'.
   'houston-tx': {
     cityId: 'houston-tx',
     cityName: 'Houston',
@@ -518,9 +520,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 307772,
     medianRent: 1654,
     capRateDistribution: {
-      p25: 6.2,
-      p50: 6.9,
-      p75: 7.7,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: -2.0,
     rentChange12m: -0.0,
@@ -646,6 +648,10 @@ const MOCK_DATA: MockCityData = {
   // absorptionRate: real, Redfin 12420 MONTHS_OF_SUPPLY, month ending
   // 2026-05-31. Both retrieved 2026-09-09; Redfin code matches the CBSA.
   // (Redfin region 12380 is Austin, MINNESOTA — explicitly excluded.)
+  //
+  // capRateDistribution corrected 2026-09-09 from an invented placeholder
+  // (p50 6.4) to null — see houston-tx's note above; same dead-end, same
+  // documented convention.
   'austin-tx': {
     cityId: 'austin-tx',
     cityName: 'Austin',
@@ -656,9 +662,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 424339,
     medianRent: 1647,
     capRateDistribution: {
-      p25: 5.8,
-      p50: 6.4,
-      p75: 7.1,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: -5.2,
     rentChange12m: -0.9,
@@ -784,6 +790,10 @@ const MOCK_DATA: MockCityData = {
   // daysOnMarket: real, FRED MEDDAYONMAR38060, month 2026-08.
   // absorptionRate: real, Redfin 38060 MONTHS_OF_SUPPLY, month ending
   // 2026-05-31. Both retrieved 2026-09-09; Redfin code matches the CBSA.
+  //
+  // capRateDistribution corrected 2026-09-09 from an invented placeholder
+  // (p50 6.8) to null — see houston-tx's note above; same dead-end, same
+  // documented convention.
   'phoenix-az': {
     cityId: 'phoenix-az',
     cityName: 'Phoenix',
@@ -794,9 +804,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 445924,
     medianRent: 1727,
     capRateDistribution: {
-      p25: 6.1,
-      p50: 6.8,
-      p75: 7.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: -1.5,
     rentChange12m: 0.3,

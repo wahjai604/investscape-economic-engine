@@ -305,7 +305,7 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(result.absorptionRate).toBe(1.9); // Tight market
     });
 
-    it('should return Houston with highest cap rates in South', () => {
+    it('should return Houston as affordable, with cap rate left unsourced (2026-09-09 correction)', () => {
       const result = cityMarketAnalysis({
         cityId: 'houston-tx',
         cityName: 'Houston',
@@ -314,7 +314,10 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.capRateDistribution.p50).toBe(6.9); // Highest South cap rates
+      // Prior invented placeholder (p50 6.9) removed 2026-09-09 — matches
+      // dallas-tx/san-antonio-tx/tucson-az's documented null convention;
+      // no free per-metro cap rate source exists.
+      expect(result.capRateDistribution.p50).toBeNull();
       expect(result.medianHousePrice).toBeLessThan(415000); // Affordable
     });
 
@@ -419,7 +422,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
       // Live-verified against Zillow ZHVI/ZORI 2026-09-06 (previous mock values
       // of $425,000 / +5.8% were fabricated placeholders).
       expect(result.medianHousePrice).toBe(445924);
-      expect(result.capRateDistribution.p50).toBe(6.8); // Better cap rates (still placeholder)
+      // Prior invented placeholder (p50 6.8) removed 2026-09-09 — matches
+      // dallas-tx/san-antonio-tx/tucson-az's documented null convention.
+      expect(result.capRateDistribution.p50).toBeNull();
       expect(result.priceChange12m).toBe(-1.5);
     });
   });
@@ -521,7 +526,14 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(chicago.priceChange12m).toBeGreaterThan(austin.priceChange12m);
     });
 
-    it('should show South region cities with highest cap rates in US', () => {
+    it('should leave Houston cap rate unsourced rather than compare it against a fabricated South-vs-West claim (corrected 2026-09-09)', () => {
+      // This test previously asserted Houston's cap rate beat San Francisco's,
+      // using an invented South-region placeholder (p50 6.9) that was removed
+      // 2026-09-09 — no free per-metro cap rate source exists, so Houston now
+      // correctly reports null, matching dallas-tx/san-antonio-tx/tucson-az's
+      // documented convention. A real South-vs-West cap rate comparison isn't
+      // possible honestly until a real source is found; asserting null here is
+      // the accurate claim, not a downgrade.
       const houston = cityMarketAnalysis({
         cityId: 'houston-tx',
         cityName: 'Houston',
@@ -530,15 +542,7 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      const sanFrancisco = cityMarketAnalysis({
-        cityId: 'san-francisco-ca',
-        cityName: 'San Francisco',
-        province: 'California',
-        regionId: US_REGIONS.WEST,
-        asOfDate: new Date('2026-08-04'),
-      });
-
-      expect(houston.capRateDistribution.p50).toBeGreaterThan(sanFrancisco.capRateDistribution.p50!);
+      expect(houston.capRateDistribution.p50).toBeNull();
     });
   });
 
