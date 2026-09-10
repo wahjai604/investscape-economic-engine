@@ -303,6 +303,12 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(result.priceChange12m).toBe(6.1); // Fastest in South
       expect(result.rentChange12m).toBe(6.3);
       expect(result.absorptionRate).toBe(1.9); // Tight market
+      // Prior "FRED, Zillow"-tagged cap rate (p25 5.2 / p50 5.9 / p75 6.7)
+      // removed 2026-09-10 by E68 Phase 4 — no legitimate commercial cap-rate
+      // source found for this metro.
+      expect(result.capRateDistribution.p25).toBeNull();
+      expect(result.capRateDistribution.p50).toBeNull();
+      expect(result.capRateDistribution.p75).toBeNull();
     });
 
     it('should return Houston as affordable, with cap rate left unsourced (2026-09-09 correction)', () => {
@@ -394,7 +400,12 @@ describe('E30: City-Level Market Analysis Engine', () => {
       });
 
       expect(result.medianHousePrice).toBe(675000);
-      expect(result.capRateDistribution.p50).toBe(4.9);
+      // Prior "FRED, Zillow"-tagged value (p50 4.9) removed 2026-09-10 by E68
+      // Phase 4 — neither source publishes a commercial cap rate. Same null
+      // convention as houston-tx/austin-tx/phoenix-az.
+      expect(result.capRateDistribution.p25).toBeNull();
+      expect(result.capRateDistribution.p50).toBeNull();
+      expect(result.capRateDistribution.p75).toBeNull();
     });
 
     it('should return Denver as Mountain West hub', () => {

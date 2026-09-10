@@ -438,6 +438,16 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 from values tagged "FRED, Zillow"
+  // (p25 5.2 / p50 5.9 / p75 6.7) to null. E68 Phase 4 searched for a legitimate
+  // commercial cap-rate source for this metro and found none: CBRE's U.S. Cap
+  // Rate Survey H1 2026 gates every market-level table behind a download, and
+  // Marcus & Millichap's market-report service was unavailable. Neither FRED nor
+  // Zillow publishes a commercial cap rate at all — FRED carries interest rates
+  // and housing statistics, Zillow carries residential ZHVI/ZORI — so the old
+  // provenance never supported these numbers in the first place. Same dead-end
+  // and same convention as houston-tx/austin-tx/phoenix-az above. Do NOT restore
+  // these values without a real report, table and date.
   'miami-fl': {
     cityId: 'miami-fl',
     cityName: 'Miami',
@@ -448,9 +458,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 525000,
     medianRent: 2150,
     capRateDistribution: {
-      p25: 5.2,
-      p50: 5.9,
-      p75: 6.7,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 6.1,
     rentChange12m: 6.3,
@@ -741,6 +751,16 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 from values tagged "FRED, Zillow"
+  // (p25 4.3 / p50 4.9 / p75 5.6) to null. E68 Phase 4 searched for a legitimate
+  // commercial cap-rate source for this metro and found none: CBRE's U.S. Cap
+  // Rate Survey H1 2026 gates every market-level table behind a download, and
+  // Marcus & Millichap's market-report service was unavailable. Neither FRED nor
+  // Zillow publishes a commercial cap rate at all — FRED carries interest rates
+  // and housing statistics, Zillow carries residential ZHVI/ZORI — so the old
+  // provenance never supported these numbers in the first place. Same dead-end
+  // and same convention as houston-tx/austin-tx/phoenix-az above. Do NOT restore
+  // these values without a real report, table and date.
   'seattle-wa': {
     cityId: 'seattle-wa',
     cityName: 'Seattle',
@@ -751,9 +771,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 675000,
     medianRent: 2250,
     capRateDistribution: {
-      p25: 4.3,
-      p50: 4.9,
-      p75: 5.6,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 3.8,
     rentChange12m: 4.5,
