@@ -332,7 +332,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
       // anymore (previous mock data claimed +7.2%/+7.5%, which was fabricated).
       expect(result.priceChange12m).toBe(-5.2);
       expect(result.rentChange12m).toBe(-0.9);
-      expect(result.daysOnMarket).toBe(15); // Still placeholder, not yet live-sourced
+      // Now live-sourced: FRED MEDDAYONMAR12420, observation month 2026-08,
+      // retrieved 2026-09-09. Was previously the placeholder 15.
+      expect(result.daysOnMarket).toBe(73);
     });
 
     it('should return Nashville as emerging growth market', () => {
@@ -581,6 +583,148 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(result.capRateDistribution.p50).toBeNull();
       expect(result.capRateDistribution.p75).toBeNull();
       expect(result.medianHousePrice).not.toBeNull();
+    });
+  });
+
+  /**
+   * Live-sourced market velocity, retrieved 2026-09-09. Reproduce with:
+   *   node scripts/fetch-fred-days-on-market.mjs
+   *   node scripts/fetch-redfin-months-of-supply.mjs
+   *
+   * daysOnMarket  <- FRED MEDDAYONMAR<CBSA>, observation month 2026-08.
+   * absorptionRate <- Redfin metro market tracker MONTHS_OF_SUPPLY,
+   *                   "All Residential", NSA, month ending 2026-05-31.
+   *
+   * These are exact-value assertions on purpose. The previous placeholders were
+   * plausible-looking inventions and nothing caught them; pinning the real
+   * figures means any future drift has to be an explicit, deliberate edit.
+   */
+  describe('Live-sourced market velocity (FRED + Redfin, 2026-09-09)', () => {
+
+    const VERIFIED_VELOCITY: ReadonlyArray<{
+      cityId: string;
+      cityName: string;
+      province: string;
+      regionId: string;
+      cbsa: string;
+      daysOnMarket: number;
+      absorptionRate: number;
+    }> = [
+      { cityId: 'houston-tx', cityName: 'Houston', province: 'Texas', regionId: US_REGIONS.SOUTH, cbsa: '26420', daysOnMarket: 52, absorptionRate: 4.2 },
+      { cityId: 'austin-tx', cityName: 'Austin', province: 'Texas', regionId: US_REGIONS.SOUTH, cbsa: '12420', daysOnMarket: 73, absorptionRate: 5.2 },
+      { cityId: 'dallas-tx', cityName: 'Dallas', province: 'Texas', regionId: US_REGIONS.SOUTH, cbsa: '19100', daysOnMarket: 58, absorptionRate: 4.2 },
+      { cityId: 'san-antonio-tx', cityName: 'San Antonio', province: 'Texas', regionId: US_REGIONS.SOUTH, cbsa: '41700', daysOnMarket: 68, absorptionRate: 5.4 },
+      { cityId: 'phoenix-az', cityName: 'Phoenix', province: 'Arizona', regionId: US_REGIONS.WEST, cbsa: '38060', daysOnMarket: 67, absorptionRate: 3.5 },
+      { cityId: 'tucson-az', cityName: 'Tucson', province: 'Arizona', regionId: US_REGIONS.WEST, cbsa: '46060', daysOnMarket: 63, absorptionRate: 3.7 },
+    ];
+
+    it.each(VERIFIED_VELOCITY)(
+      'should return live-sourced velocity for $cityId (CBSA $cbsa)',
+      ({ cityId, cityName, province, regionId, daysOnMarket, absorptionRate }) => {
+        const result = cityMarketAnalysis({
+          cityId,
+          cityName,
+          province,
+          regionId,
+          asOfDate: new Date('2026-08-04'),
+        });
+
+        expect(result.daysOnMarket).toBe(daysOnMarket);
+        expect(result.absorptionRate).toBe(absorptionRate);
+      }
+    );
+
+    it('should cite both FRED and Redfin on every live-sourced metro', () => {
+      for (const { cityId, cityName, province, regionId } of VERIFIED_VELOCITY) {
+        const result = cityMarketAnalysis({
+          cityId,
+          cityName,
+          province,
+          regionId,
+          asOfDate: new Date('2026-08-04'),
+        });
+
+        expect(result.source).toContain('Redfin Data Center');
+        expect(result.source).toContain('Federal Reserve FRED');
+        expect(result.source).toContain('Zillow ZHVI/ZORI');
+      }
+    });
+
+    it('should keep source clean of audit/dev commentary (renders in the UI)', () => {
+      // Guards a real regression: dev notes once leaked into the SOURCE KPI
+      // card. `source` is user-facing prose, not a place for TODOs or vintages.
+      const forbidden = ['TODO', 'FIXME', 'placeholder', 'unverified', 'XXX', 'HACK', 'NOTE:', 'fabricat'];
+
+      for (const { cityId, cityName, province, regionId } of VERIFIED_VELOCITY) {
+        const result = cityMarketAnalysis({
+          cityId,
+          cityName,
+          province,
+          regionId,
+          asOfDate: new Date('2026-08-04'),
+        });
+
+        for (const token of forbidden) {
+          expect(result.source.toLowerCase()).not.toContain(token.toLowerCase());
+        }
+      }
+    });
+
+    it('should classify all six as slow markets, not the hot markets the old placeholders implied', () => {
+      // The replaced placeholders claimed 15-22 DOM and 1.6-2.5 months of
+      // supply. FRED and Redfin independently disagree: every one of these
+      // metros is above 6 weeks on market and above 3 months of supply.
+      for (const { cityId, cityName, province, regionId } of VERIFIED_VELOCITY) {
+        const result = cityMarketAnalysis({
+          cityId,
+          cityName,
+          province,
+          regionId,
+          asOfDate: new Date('2026-08-04'),
+        });
+
+        expect(result.daysOnMarket).toBeGreaterThan(42);
+        expect(result.absorptionRate).toBeGreaterThan(3);
+      }
+    });
+
+    it('should hold confidence at medium while cap rate stays unsourced', () => {
+      for (const { cityId, cityName, province, regionId } of VERIFIED_VELOCITY) {
+        const result = cityMarketAnalysis({
+          cityId,
+          cityName,
+          province,
+          regionId,
+          asOfDate: new Date('2026-08-04'),
+        });
+
+        expect(result.confidence).toBe('medium');
+      }
+    });
+
+    it('should show Austin as the slowest of the six on days on market', () => {
+      const austin = cityMarketAnalysis({
+        cityId: 'austin-tx',
+        cityName: 'Austin',
+        province: 'Texas',
+        regionId: US_REGIONS.SOUTH,
+        asOfDate: new Date('2026-08-04'),
+      });
+
+      const others = VERIFIED_VELOCITY.filter((m) => m.cityId !== 'austin-tx').map(
+        ({ cityId, cityName, province, regionId }) =>
+          cityMarketAnalysis({
+            cityId,
+            cityName,
+            province,
+            regionId,
+            asOfDate: new Date('2026-08-04'),
+          })
+      );
+
+      for (const other of others) {
+        expect(austin.daysOnMarket).toBeGreaterThan(other.daysOnMarket);
+      }
     });
   });
 });

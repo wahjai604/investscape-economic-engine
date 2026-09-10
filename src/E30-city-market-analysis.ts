@@ -32,6 +32,8 @@
  * - CMHC Housing (Canada rental)
  * - ApartmentList (US rental)
  * - Census / StatCan (population)
+ * - FRED / Realtor.com (US median days on market, per CBSA)
+ * - Redfin Data Center (US months of supply, per metro)
  */
 
 import { CityMetrics, CityMetricsInput } from './types';
@@ -458,16 +460,54 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // ===== MARKET VELOCITY SOURCING (houston/austin/phoenix/dallas/
+  // san-antonio/tucson) =====
+  //
+  // daysOnMarket and absorptionRate on the six metros below are real, retrieved
+  // 2026-09-09. Reproduce with:
+  //   node scripts/fetch-fred-days-on-market.mjs
+  //   node scripts/fetch-redfin-months-of-supply.mjs
+  //
+  // daysOnMarket  <- FRED series MEDDAYONMAR<CBSA> ("Housing Inventory: Median
+  //   Days on Market"), monthly, not seasonally adjusted, Realtor.com data
+  //   republished by FRED. All six series were confirmed to exist before any
+  //   value was read. VINTAGE: observation month 2026-08 (series last updated
+  //   2026-09-04) for all six.
+  //
+  // absorptionRate <- Redfin Data Center metro market tracker, column
+  //   MONTHS_OF_SUPPLY, property type "All Residential", 30-day period, not
+  //   seasonally adjusted. The field's documented unit is "Months of inventory",
+  //   so this is a direct match with no conversion. VINTAGE: month ending
+  //   2026-05-31 (file last modified 2026-06-02) for all six.
+  //
+  // MIXED VINTAGE IS DELIBERATE AND UNRESOLVED: DOM is an August 2026 figure,
+  // months-of-supply is a May 2026 figure, and the record's asOfDate is
+  // 2026-08-04. Redfin's public bulk file simply had not been refreshed past May
+  // when this was pulled. The stale-but-real May number is preferred over
+  // extrapolating an August one. This mismatch is a second reason confidence
+  // stays 'medium'.
+  //
+  // These replaced placeholders that were badly wrong, not merely imprecise —
+  // the old values claimed 15-22 days on market and 1.6-2.5 months of supply,
+  // i.e. a hot seller's market. Both independent sources agree these metros are
+  // actually slow (52-73 days, 3.5-5.4 months). Do not "correct" them back
+  // toward the old range because it looks more familiar.
+  //
   // Verified against Zillow Research's live public ZHVI/ZORI CSVs on 2026-09-06
   // (files.zillowstatic.com/research/public_csvs/{zhvi,zori}/...), metro
   // "Houston, TX", period 2026-07-31 vs 2025-07-31. Population verified against
   // Census ACS 1-year estimates (api.census.gov/data/2023/acs/acs1), metro
   // "Houston-Pasadena-The Woodlands, TX Metro Area" (CBSA 26420), 2026-09-06.
-  // medianHousePrice/medianRent/priceChange12m/rentChange12m/population below
-  // are all real, live-sourced figures. capRateDistribution/daysOnMarket/
-  // absorptionRate have no free public feed identified yet — still
-  // placeholders, hence confidence stays 'medium' rather than 'high' until
-  // those are sourced too.
+  //
+  // daysOnMarket: real, FRED series MEDDAYONMAR26420 (Realtor.com via FRED),
+  // observation month 2026-08, retrieved 2026-09-09.
+  // absorptionRate: real, Redfin metro market tracker MONTHS_OF_SUPPLY for
+  // "Houston, TX metro area" (26420), month ending 2026-05-31, retrieved
+  // 2026-09-09. See the MARKET VELOCITY SOURCING note above this block.
+  //
+  // capRateDistribution is now the only unsourced field on this record and
+  // remains a placeholder — no free public per-metro cap rate feed exists.
+  // confidence stays 'medium' for that reason.
   'houston-tx': {
     cityId: 'houston-tx',
     cityName: 'Houston',
@@ -484,9 +524,9 @@ const MOCK_DATA: MockCityData = {
     },
     priceChange12m: -2.0,
     rentChange12m: -0.0,
-    daysOnMarket: 20,
-    absorptionRate: 2.3,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    daysOnMarket: 52,
+    absorptionRate: 4.2,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI, ${DATA_SOURCES.REDFIN}`,
     confidence: 'medium',
   },
 
@@ -497,8 +537,21 @@ const MOCK_DATA: MockCityData = {
   // rentChange12m/population are real, live-sourced. capRateDistribution set to
   // null (no reliable source found, per the type's own documented convention for
   // sparse/unverified markets) rather than reusing an invented number.
-  // daysOnMarket/absorptionRate remain rough regional-consistent placeholders —
-  // no free feed identified yet — hence confidence stays 'medium'.
+  //
+  // daysOnMarket: real, FRED MEDDAYONMAR19100 ("Dallas-Fort Worth-Arlington,
+  // TX"), observation month 2026-08, retrieved 2026-09-09 — full CBSA, matches
+  // the population/price basis of this record.
+  //
+  // absorptionRate: real, Redfin metro market tracker MONTHS_OF_SUPPLY, month
+  // ending 2026-05-31, retrieved 2026-09-09 — BUT note the geography differs.
+  // Redfin publishes no row for CBSA 19100; it splits DFW into "Dallas, TX
+  // metro area" (Metropolitan Division 19124) and "Fort Worth, TX metro area"
+  // (23104). The 4.2 below is Redfin's Dallas division (19124) only, i.e. it
+  // excludes Fort Worth-Arlington, while every other field on this record is
+  // DFW-wide. Blending the two divisions into a DFW-wide months-of-supply is
+  // NOT something Redfin publishes, so it is not synthesised here. This is the
+  // one geographic seam in the six real metros; keep it in mind before
+  // promoting this record to confidence 'high'.
   'dallas-tx': {
     cityId: 'dallas-tx',
     cityName: 'Dallas',
@@ -515,14 +568,17 @@ const MOCK_DATA: MockCityData = {
     },
     priceChange12m: -2.6,
     rentChange12m: 0.1,
-    daysOnMarket: 19,
-    absorptionRate: 2.1,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    daysOnMarket: 58,
+    absorptionRate: 4.2,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI, ${DATA_SOURCES.REDFIN}`,
     confidence: 'medium',
   },
 
   // Same verification pass as dallas-tx above, metro "San Antonio, TX" /
   // Census CBSA 41700 ("San Antonio-New Braunfels, TX Metro Area").
+  // daysOnMarket: real, FRED MEDDAYONMAR41700, month 2026-08.
+  // absorptionRate: real, Redfin 41700 MONTHS_OF_SUPPLY, month ending
+  // 2026-05-31. Both retrieved 2026-09-09; Redfin code matches the CBSA.
   'san-antonio-tx': {
     cityId: 'san-antonio-tx',
     cityName: 'San Antonio',
@@ -539,14 +595,19 @@ const MOCK_DATA: MockCityData = {
     },
     priceChange12m: -1.9,
     rentChange12m: -1.8,
-    daysOnMarket: 21,
-    absorptionRate: 2.4,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    daysOnMarket: 68,
+    absorptionRate: 5.4,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI, ${DATA_SOURCES.REDFIN}`,
     confidence: 'medium',
   },
 
   // Same verification pass as dallas-tx above, metro "Tucson, AZ" /
   // Census CBSA 46060 ("Tucson, AZ Metro Area").
+  // daysOnMarket: real, FRED MEDDAYONMAR46060, month 2026-08 — confirmed the
+  // series does exist for Tucson (it is the smallest of the six metros, so this
+  // was checked explicitly rather than assumed).
+  // absorptionRate: real, Redfin 46060 MONTHS_OF_SUPPLY, month ending
+  // 2026-05-31. Both retrieved 2026-09-09; Redfin code matches the CBSA.
   'tucson-az': {
     cityId: 'tucson-az',
     cityName: 'Tucson',
@@ -563,9 +624,9 @@ const MOCK_DATA: MockCityData = {
     },
     priceChange12m: -2.0,
     rentChange12m: 1.1,
-    daysOnMarket: 22,
-    absorptionRate: 2.5,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    daysOnMarket: 63,
+    absorptionRate: 3.7,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI, ${DATA_SOURCES.REDFIN}`,
     confidence: 'medium',
   },
 
@@ -580,6 +641,11 @@ const MOCK_DATA: MockCityData = {
 
   // Same verification pass as houston-tx above, metro "Austin, TX" /
   // Census CBSA 12420 ("Austin-Round Rock-San Marcos, TX Metro Area").
+  // daysOnMarket: real, FRED MEDDAYONMAR12420, month 2026-08 — 73 days, the
+  // slowest of the six, consistent with Austin's post-2023 correction.
+  // absorptionRate: real, Redfin 12420 MONTHS_OF_SUPPLY, month ending
+  // 2026-05-31. Both retrieved 2026-09-09; Redfin code matches the CBSA.
+  // (Redfin region 12380 is Austin, MINNESOTA — explicitly excluded.)
   'austin-tx': {
     cityId: 'austin-tx',
     cityName: 'Austin',
@@ -596,9 +662,9 @@ const MOCK_DATA: MockCityData = {
     },
     priceChange12m: -5.2,
     rentChange12m: -0.9,
-    daysOnMarket: 15,
-    absorptionRate: 1.6,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    daysOnMarket: 73,
+    absorptionRate: 5.2,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI, ${DATA_SOURCES.REDFIN}`,
     confidence: 'medium',
   },
 
@@ -715,6 +781,9 @@ const MOCK_DATA: MockCityData = {
 
   // Same verification pass as houston-tx/austin-tx above, metro "Phoenix, AZ" /
   // Census CBSA 38060 ("Phoenix-Mesa-Chandler, AZ Metro Area").
+  // daysOnMarket: real, FRED MEDDAYONMAR38060, month 2026-08.
+  // absorptionRate: real, Redfin 38060 MONTHS_OF_SUPPLY, month ending
+  // 2026-05-31. Both retrieved 2026-09-09; Redfin code matches the CBSA.
   'phoenix-az': {
     cityId: 'phoenix-az',
     cityName: 'Phoenix',
@@ -731,9 +800,9 @@ const MOCK_DATA: MockCityData = {
     },
     priceChange12m: -1.5,
     rentChange12m: 0.3,
-    daysOnMarket: 17,
-    absorptionRate: 1.9,
-    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI`,
+    daysOnMarket: 67,
+    absorptionRate: 3.5,
+    source: `${DATA_SOURCES.FRED}, Zillow ZHVI/ZORI, ${DATA_SOURCES.REDFIN}`,
     confidence: 'medium',
   },
 };

@@ -126,4 +126,5 @@ export const DATA_SOURCES = {
   CREA: 'CREA',
   CBRE: 'CBRE',
   FHFA: 'FHFA',
+  REDFIN: 'Redfin Data Center',
 } as const;
