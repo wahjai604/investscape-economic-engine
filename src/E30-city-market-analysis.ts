@@ -55,6 +55,25 @@ const MOCK_DATA: MockCityData = {
   // ===== CANADIAN CITIES =====
 
   // Atlantic Region Cities
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 5.2) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'halifax-ns': {
     cityId: 'halifax-ns',
     cityName: 'Halifax',
@@ -65,9 +84,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 475000,
     medianRent: 1850,
     capRateDistribution: {
-      p25: 4.8,
-      p50: 5.2,
-      p75: 5.8,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.1,
     rentChange12m: 4.2,
@@ -77,6 +96,25 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 5.5) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'st-johns-nl': {
     cityId: 'st-johns-nl',
     cityName: "St. John's",
@@ -87,9 +125,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 385000,
     medianRent: 1650,
     capRateDistribution: {
-      p25: 5.1,
-      p50: 5.5,
-      p75: 6.1,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 1.5,
     rentChange12m: 3.8,
@@ -100,6 +138,25 @@ const MOCK_DATA: MockCityData = {
   },
 
   // Central Region Cities
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 4.6) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'toronto-on': {
     cityId: 'toronto-on',
     cityName: 'Toronto',
@@ -110,9 +167,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 825000,
     medianRent: 2450,
     capRateDistribution: {
-      p25: 4.1,
-      p50: 4.6,
-      p75: 5.2,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 3.8,
     rentChange12m: 5.2,
@@ -122,6 +179,25 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 4.9) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'montreal-qc': {
     cityId: 'montreal-qc',
     cityName: 'Montreal',
@@ -132,9 +208,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 595000,
     medianRent: 1950,
     capRateDistribution: {
-      p25: 4.3,
-      p50: 4.9,
-      p75: 5.6,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.9,
     rentChange12m: 4.1,
@@ -144,6 +220,25 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 5.0) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'ottawa-on': {
     cityId: 'ottawa-on',
     cityName: 'Ottawa',
@@ -154,9 +249,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 625000,
     medianRent: 1850,
     capRateDistribution: {
-      p25: 4.5,
-      p50: 5.0,
-      p75: 5.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.3,
     rentChange12m: 3.9,
@@ -167,6 +262,25 @@ const MOCK_DATA: MockCityData = {
   },
 
   // Prairie Region Cities
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 5.8) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'calgary-ab': {
     cityId: 'calgary-ab',
     cityName: 'Calgary',
@@ -177,9 +291,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 525000,
     medianRent: 1750,
     capRateDistribution: {
-      p25: 5.2,
-      p50: 5.8,
-      p75: 6.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 4.2,
     rentChange12m: 4.8,
@@ -189,6 +303,25 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 5.9) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'edmonton-ab': {
     cityId: 'edmonton-ab',
     cityName: 'Edmonton',
@@ -199,9 +332,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 485000,
     medianRent: 1650,
     capRateDistribution: {
-      p25: 5.3,
-      p50: 5.9,
-      p75: 6.6,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 3.8,
     rentChange12m: 4.5,
@@ -211,6 +344,25 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 6.2) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'winnipeg-mb': {
     cityId: 'winnipeg-mb',
     cityName: 'Winnipeg',
@@ -221,9 +373,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 395000,
     medianRent: 1450,
     capRateDistribution: {
-      p25: 5.5,
-      p50: 6.2,
-      p75: 7.0,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.1,
     rentChange12m: 3.2,
@@ -234,6 +386,25 @@ const MOCK_DATA: MockCityData = {
   },
 
   // West Coast Cities
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 4.3) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'vancouver-bc': {
     cityId: 'vancouver-bc',
     cityName: 'Vancouver',
@@ -244,9 +415,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 1050000,
     medianRent: 2350,
     capRateDistribution: {
-      p25: 3.8,
-      p50: 4.3,
-      p75: 4.9,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 5.2,
     rentChange12m: 5.8,
@@ -256,6 +427,25 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-11 (E68 Phase 4B complete audit) from
+  // a value tagged "CREA, CMHC" (p50 4.5) to null. Provenance failure: this
+  // file's own header labels this a "Mock data store" (fixtures representing
+  // "realistic Aug 4, 2026 market conditions", not sourced data), and its
+  // documented source list uses CREA only for "Canada comps" and CMHC only for
+  // "Canada rental" -- neither is credited as a cap-rate source. Neither
+  // publisher publishes a commercial cap rate: CREA publishes residential MLS
+  // statistics, CMHC publishes housing starts/rental data. Same structural
+  // failure as the FRED/Zillow US records nulled 2026-09-10.
+  //
+  // A real replacement was found and searched for a match: Cushman & Wakefield
+  // Canada's Q2 2026 Cap Rate & Capital Markets Report gives a labeled
+  // multifamily High Rise/Low Rise range for this city. The removed value does
+  // NOT match that report's range boundaries (checked, not assumed) -- see
+  // market-intelligence-engine docs/E68-cap-rate-data-coverage.md for the
+  // full comparison. The real C&W figures live in E68
+  // (src/cre-intelligence/data/cap-rates-ca.ts), not written back here, per
+  // E68's lineage rule: this file keeps its own audit trail rather than being
+  // silently overwritten.
   'victoria-bc': {
     cityId: 'victoria-bc',
     cityName: 'Victoria',
@@ -266,9 +456,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 875000,
     medianRent: 2050,
     capRateDistribution: {
-      p25: 4.0,
-      p50: 4.5,
-      p75: 5.1,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 4.9,
     rentChange12m: 5.3,

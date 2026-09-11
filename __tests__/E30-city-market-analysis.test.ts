@@ -42,7 +42,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
       expect(result.priceChange12m).toBe(2.1);
       expect(result.rentChange12m).toBe(4.2);
       expect(result.daysOnMarket).toBe(28);
-      expect(result.capRateDistribution.p50).toBe(5.2);
+      // Cap rate removed 2026-09-11 (E68 Phase 4B audit): "CREA, CMHC" is not
+      // valid commercial cap-rate provenance and no free replacement was found
+      // for this exact city/range. Real C&W Canadian multifamily data lives in
+      // E68, not written back here (see E30 in-file audit comment).
+      expect(result.capRateDistribution.p50).toBeNull();
       expect(result.confidence).toBe('high');
     });
 
@@ -73,7 +77,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
       });
 
       expect(result.medianHousePrice).toBe(825000);
-      expect(result.capRateDistribution.p50).toBe(4.6); // Lowest cap rate
+      // Cap rate removed 2026-09-11 (E68 Phase 4B audit): "CREA, CMHC" is not
+      // valid commercial cap-rate provenance and no free replacement was found
+      // for this exact city/range. Real C&W Canadian multifamily data lives in
+      // E68, not written back here (see E30 in-file audit comment).
+      expect(result.capRateDistribution.p50).toBeNull(); // was 4.6, now unsourced
       expect(result.daysOnMarket).toBe(18); // Fast market
       expect(result.rentChange12m).toBe(5.2); // Strong rental growth
     });
@@ -118,7 +126,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.capRateDistribution.p50).toBe(5.8); // High cap rate
+      // Cap rate removed 2026-09-11 (E68 Phase 4B audit): "CREA, CMHC" is not
+      // valid commercial cap-rate provenance and no free replacement was found
+      // for this exact city/range. Real C&W Canadian multifamily data lives in
+      // E68, not written back here (see E30 in-file audit comment).
+      expect(result.capRateDistribution.p50).toBeNull(); // was 5.8, now unsourced
       expect(result.priceChange12m).toBe(4.2); // Strong appreciation
       expect(result.rentChange12m).toBe(4.8);
     });
@@ -132,7 +144,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.capRateDistribution.p50).toBeGreaterThan(5.8);
+      // Cap rate removed 2026-09-11 (E68 Phase 4B audit): "CREA, CMHC" is not
+      // valid commercial cap-rate provenance and no free replacement was found
+      // for this exact city/range. Real C&W Canadian multifamily data lives in
+      // E68, not written back here (see E30 in-file audit comment).
+      expect(result.capRateDistribution.p50).toBeNull(); // was toBeGreaterThan(5.8)
       expect(result.medianHousePrice).toBeLessThan(525000); // More affordable
     });
 
@@ -146,7 +162,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
       });
 
       expect(result.medianHousePrice).toBe(395000); // Lowest in Prairie
-      expect(result.capRateDistribution.p50).toBe(6.2); // Highest cap rates
+      // Cap rate removed 2026-09-11 (E68 Phase 4B audit): "CREA, CMHC" is not
+      // valid commercial cap-rate provenance and no free replacement was found
+      // for this exact city/range. Real C&W Canadian multifamily data lives in
+      // E68, not written back here (see E30 in-file audit comment).
+      expect(result.capRateDistribution.p50).toBeNull(); // was 6.2, now unsourced
       expect(result.medianRent).toBe(1450); // Lowest rent
     });
   });
@@ -163,7 +183,11 @@ describe('E30: City-Level Market Analysis Engine', () => {
       });
 
       expect(result.medianHousePrice).toBe(1050000); // Most expensive
-      expect(result.capRateDistribution.p50).toBe(4.3); // Lowest cap rate
+      // Cap rate removed 2026-09-11 (E68 Phase 4B audit): "CREA, CMHC" is not
+      // valid commercial cap-rate provenance and no free replacement was found
+      // for this exact city/range. Real C&W Canadian multifamily data lives in
+      // E68, not written back here (see E30 in-file audit comment).
+      expect(result.capRateDistribution.p50).toBeNull(); // was 4.3, now unsourced
       expect(result.priceChange12m).toBe(5.2); // Strong appreciation
       expect(result.daysOnMarket).toBe(16); // Fastest market
     });
