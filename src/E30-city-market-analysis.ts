@@ -304,6 +304,17 @@ const MOCK_DATA: MockCityData = {
   // ===== US CITIES =====
 
   // Northeast Region Cities
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 4.2 / p50 4.8 / p75 5.5) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'boston-ma': {
     cityId: 'boston-ma',
     cityName: 'Boston',
@@ -314,9 +325,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 595000,
     medianRent: 2150,
     capRateDistribution: {
-      p25: 4.2,
-      p50: 4.8,
-      p75: 5.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.8,
     rentChange12m: 4.2,
@@ -326,6 +337,17 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 3.9 / p50 4.5 / p75 5.2) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'new-york-ny': {
     cityId: 'new-york-ny',
     cityName: 'New York',
@@ -336,9 +358,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 525000,
     medianRent: 2850,
     capRateDistribution: {
-      p25: 3.9,
-      p50: 4.5,
-      p75: 5.2,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 1.9,
     rentChange12m: 3.8,
@@ -348,6 +370,17 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 5.1 / p50 5.8 / p75 6.5) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'philadelphia-pa': {
     cityId: 'philadelphia-pa',
     cityName: 'Philadelphia',
@@ -358,9 +391,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 365000,
     medianRent: 1650,
     capRateDistribution: {
-      p25: 5.1,
-      p50: 5.8,
-      p75: 6.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.5,
     rentChange12m: 3.9,
@@ -371,6 +404,17 @@ const MOCK_DATA: MockCityData = {
   },
 
   // Midwest Region Cities
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 5.8 / p50 6.5 / p75 7.2) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'chicago-il': {
     cityId: 'chicago-il',
     cityName: 'Chicago',
@@ -381,9 +425,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 295000,
     medianRent: 1550,
     capRateDistribution: {
-      p25: 5.8,
-      p50: 6.5,
-      p75: 7.2,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 1.8,
     rentChange12m: 3.1,
@@ -393,6 +437,17 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 5.5 / p50 6.2 / p75 6.9) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'minneapolis-mn': {
     cityId: 'minneapolis-mn',
     cityName: 'Minneapolis',
@@ -403,9 +458,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 385000,
     medianRent: 1450,
     capRateDistribution: {
-      p25: 5.5,
-      p50: 6.2,
-      p75: 6.9,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.2,
     rentChange12m: 3.5,
@@ -416,6 +471,17 @@ const MOCK_DATA: MockCityData = {
   },
 
   // South Region Cities
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 5.9 / p50 6.6 / p75 7.4) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'atlanta-ga': {
     cityId: 'atlanta-ga',
     cityName: 'Atlanta',
@@ -426,9 +492,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 415000,
     medianRent: 1750,
     capRateDistribution: {
-      p25: 5.9,
-      p50: 6.6,
-      p75: 7.4,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 5.2,
     rentChange12m: 5.8,
@@ -684,6 +750,17 @@ const MOCK_DATA: MockCityData = {
     confidence: 'medium',
   },
 
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 6.1 / p50 6.8 / p75 7.5) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'nashville-tn': {
     cityId: 'nashville-tn',
     cityName: 'Nashville',
@@ -694,9 +771,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 485000,
     medianRent: 1650,
     capRateDistribution: {
-      p25: 6.1,
-      p50: 6.8,
-      p75: 7.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 6.8,
     rentChange12m: 6.2,
@@ -707,6 +784,17 @@ const MOCK_DATA: MockCityData = {
   },
 
   // West Region Cities
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 4.1 / p50 4.8 / p75 5.5) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'los-angeles-ca': {
     cityId: 'los-angeles-ca',
     cityName: 'Los Angeles',
@@ -717,9 +805,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 725000,
     medianRent: 2550,
     capRateDistribution: {
-      p25: 4.1,
-      p50: 4.8,
-      p75: 5.5,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 3.2,
     rentChange12m: 4.1,
@@ -729,6 +817,17 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 3.2 / p50 3.9 / p75 4.6) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'san-francisco-ca': {
     cityId: 'san-francisco-ca',
     cityName: 'San Francisco',
@@ -739,9 +838,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 1150000,
     medianRent: 3150,
     capRateDistribution: {
-      p25: 3.2,
-      p50: 3.9,
-      p75: 4.6,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 2.1,
     rentChange12m: 3.5,
@@ -783,6 +882,17 @@ const MOCK_DATA: MockCityData = {
     confidence: 'high',
   },
 
+  // capRateDistribution corrected 2026-09-10 (E68 Phase 4A complete audit) from
+  // values tagged "FRED, Zillow" (p25 5.2 / p50 5.9 / p75 6.6) to null.
+  // Provenance failure: neither cited source publishes a commercial cap rate.
+  // FRED carries interest rates and housing statistics; Zillow carries
+  // residential ZHVI/ZORI. E68 Phase 4A searched CBRE, Colliers, JLL, Cushman &
+  // Wakefield, Marcus & Millichap, Newmark, Kidder Mathews and Matthews for a
+  // legitimate replacement for this metro and found none that is free and
+  // citable. Same convention as houston-tx/austin-tx/phoenix-az (2026-09-09) and
+  // miami-fl/seattle-wa (2026-09-10). Do NOT restore without a real report,
+  // table and date. Full audit: market-intelligence-engine
+  // docs/E68-cap-rate-data-coverage.md
   'denver-co': {
     cityId: 'denver-co',
     cityName: 'Denver',
@@ -793,9 +903,9 @@ const MOCK_DATA: MockCityData = {
     medianHousePrice: 585000,
     medianRent: 1850,
     capRateDistribution: {
-      p25: 5.2,
-      p50: 5.9,
-      p75: 6.6,
+      p25: null,
+      p50: null,
+      p75: null,
     },
     priceChange12m: 4.5,
     rentChange12m: 5.2,

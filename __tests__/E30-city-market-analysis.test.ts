@@ -229,7 +229,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
 
       expect(result.population).toBe(20140000); // Largest US metro
       expect(result.medianRent).toBe(2850); // Highest rents
-      expect(result.capRateDistribution.p50).toBe(4.5); // Expensive market
+      // Cap rate removed 2026-09-10 (E68 Phase 4A audit): "FRED, Zillow" is not
+      // valid commercial cap-rate provenance and no free replacement was found.
+      expect(result.capRateDistribution.p50).toBeNull();
     });
 
     it('should return Philadelphia as affordable Northeast alternative', () => {
@@ -242,7 +244,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
       });
 
       expect(result.medianHousePrice).toBeLessThan(595000);
-      expect(result.capRateDistribution.p50).toBeGreaterThan(4.8); // Better cap rates
+      // Cap rate removed 2026-09-10 (E68 Phase 4A audit): "FRED, Zillow" is not
+      // valid commercial cap-rate provenance and no free replacement was found.
+      expect(result.capRateDistribution.p50).toBeNull();
     });
   });
 
@@ -257,7 +261,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.capRateDistribution.p50).toBe(6.5); // High cap rates
+      // Cap rate removed 2026-09-10 (E68 Phase 4A audit): "FRED, Zillow" is not
+      // valid commercial cap-rate provenance and no free replacement was found.
+      expect(result.capRateDistribution.p50).toBeNull();
       expect(result.medianHousePrice).toBe(295000); // Affordable
     });
 
@@ -270,7 +276,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
         asOfDate: new Date('2026-08-04'),
       });
 
-      expect(result.capRateDistribution.p50).toBe(6.2);
+      // Cap rate removed 2026-09-10 (E68 Phase 4A audit): "FRED, Zillow" is not
+      // valid commercial cap-rate provenance and no free replacement was found.
+      expect(result.capRateDistribution.p50).toBeNull();
       expect(result.medianHousePrice).toBeGreaterThan(295000);
     });
   });
@@ -374,7 +382,9 @@ describe('E30: City-Level Market Analysis Engine', () => {
 
       expect(result.medianHousePrice).toBe(1150000); // Most expensive
       expect(result.medianRent).toBe(3150); // Highest rents
-      expect(result.capRateDistribution.p50).toBe(3.9); // Lowest cap rates
+      // Cap rate removed 2026-09-10 (E68 Phase 4A audit): "FRED, Zillow" is not
+      // valid commercial cap-rate provenance and no free replacement was found.
+      expect(result.capRateDistribution.p50).toBeNull();
     });
 
     it('should return Los Angeles as major West Coast market', () => {
