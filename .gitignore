@@ -29,3 +29,6 @@ Thumbs.db
 # Package manager
 package-lock.json
 yarn.lock
+
+# npm pack output (regenerable with `npm pack`)
+*.tgz
